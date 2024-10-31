@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presente para Minha Namorada</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Estilo da página */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #001029;
+            color: #fff;
+            text-align: center;
+            overflow-x: hidden;
+            padding: 20px;
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Fundo estrelado */
+        .stars {
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            top: 0;
+            left: 0;
+            background: transparent;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .star {
+            position: absolute;
+            background: #fff;
+            border-radius: 50%;
+            opacity: 0;
+            animation: twinkle 4s infinite ease-in-out;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+
+        .star:nth-child(odd) { animation-delay: 2s; }
+        .star:nth-child(2n) { animation-delay: 3s; }
+        .star:nth-child(3n) { animation-delay: 1s; }
+
+        .small { width: 2px; height: 2px; }
+        .medium { width: 3px; height: 3px; }
+        .large { width: 5px; height: 5px; }
+
+        h1 {
+            font-family: 'Pacifico', cursive;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .carousel-container {
+            max-width: 90%;
+            width: 500px;
+            margin: 20px auto;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        .carousel-slide {
+            display: flex;
+            transition: transform 0.6s ease;
+            will-change: transform; /* Performance improvement */
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            border-radius: 15px;
+        }
+
+        .counter {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px; /* Espaçamento entre os contadores */
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 15px; /* Bordas arredondadas */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5); /* Sombreamento */
+            max-width: 90%;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .counter div {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px; /* Maior espaçamento interno */
+            border-radius: 12px; /* Bordas arredondadas */
+            font-size: 1.5em; /* Tamanho maior da fonte */
+            width: 120px; /* Largura fixa */
+            text-align: center;
+            transition: background 0.3s ease; /* Transição suave */
+        }
+
+        .counter div:hover {
+            background: rgba(255, 255, 255, 0.2); /* Efeito hover */
+        }
+
+        /* Estilo do texto romântico */
+        .romantic-text {
+            max-width: 90%;
+            margin: 20px auto;
+            font-size: 1.2em;
+            line-height: 1.5;
+            color: #fff;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Para minha namorada</h1>
+
+    <!-- Fundo estrelado -->
+    <div class="stars" id="stars"></div>
+
+    <!-- Texto romântico -->
+    <div class="romantic-text">
+        <p>Meu amor,</p>
+        <p>Em cada estrela que brilha no céu, vejo um pedaço do nosso amor. Cada uma delas representa um momento que vivemos juntos, cada sorriso trocado e cada lembrança que guardamos em nossos corações. Assim como as estrelas iluminam a noite, você ilumina minha vida com seu amor e seu carinho.</p>
+        <p>O tempo que passamos juntos é precioso e, como as constelações, cada instante forma uma imagem única e bela da nossa história. À medida que os dias se transformam em meses e os meses em anos, meu amor por você só cresce, como as estrelas que brilham cada vez mais intensamente no firmamento.</p>
+        <p>Que possamos continuar contando os momentos, celebrando cada novo dia como uma nova estrela a brilhar em nossa constelação. Você é a razão pela qual meu coração bate mais forte, e sou eternamente grato por cada segundo ao seu lado.</p>
+    </div>
+
+    <!-- Carrossel de fotos -->
+    <div class="carousel-container">
+        <div class="carousel-slide">
+            <img src="foto1.jpg" alt="Uma linda paisagem" />
+            <img src="foto2.jpg" alt="Um momento especial juntos" />
+            <img src="foto3.jpg" alt="Uma lembrança feliz" />
+            <img src="foto4.jpg" alt="Um sorriso inesquecível" />
+        </div>
+    </div>
+
+    <!-- Contador de tempo -->
+    <div class="counter" id="counter">
+        <div id="years">0 anos</div>
+        <div id="months">0 meses</div>
+        <div id="days">0 dias</div>
+        <div id="hours">0 horas</div>
+        <div id="minutes">0 minutos</div>
+        <div id="seconds">0 segundos</div>
+    </div>
+
+    <script>
+        // Configuração do carrossel
+        let slideIndex = 0;
+        const slides = document.querySelector('.carousel-slide');
+        const totalSlides = slides.children.length;
+
+        function showSlide() {
+            slideIndex = (slideIndex + 1) % totalSlides;
+            slides.style.transform = `translateX(${-slideIndex * 100}%)`;
+        }
+
+        setInterval(showSlide, 3000);
+
+        // Configuração do contador
+        const startDate = new Date("2023-12-23T01:40:00");
+
+        function updateCounter() {
+            const now = new Date();
+            const diff = now - startDate;
+
+            const years = Math.floor(diff / (1000 * 60 * 60 * 24 * 365));
+            const months = Math.floor((diff % (1000 * 60 * 60 * 24 * 365)) / (1000 * 60 * 60 * 24 * 30));
+            const days = Math.floor((diff % (1000 * 60 * 60 * 24 * 30)) / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById("years").textContent = `${years} anos`;
+            document.getElementById("months").textContent = `${months} meses`;
+            document.getElementById("days").textContent = `${days} dias`;
+            document.getElementById("hours").textContent = `${hours} horas`;
+            document.getElementById("minutes").textContent = `${minutes} minutos`;
+            document.getElementById("seconds").textContent = `${seconds} segundos`;
+        }
+
+        setInterval(updateCounter, 1000);
+
+        // Script para criar estrelas
+        function createStars() {
+            const starCount = 100; 
+            const starsContainer = document.getElementById('stars');
+
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                const sizeClass = ["small", "medium", "large"][Math.floor(Math.random() * 3)];
+                star.classList.add("star", sizeClass);
+                star.style.top = `${Math.random() * 100}vh`;
+                star.style.left = `${Math.random() * 100}vw`;
+                starsContainer.appendChild(star);
+            }
+        }
+
+        createStars();
+    </script>
+</body>
+</html>
